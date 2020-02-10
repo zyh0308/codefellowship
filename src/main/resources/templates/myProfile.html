@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>my profile</title>
+</head>
+<body>
+<h1>My Posts</h1>
+<form action="/myProfile" method="POST">
+
+    Body<input type="text"name="body">
+    kidsAppropriate<input type="checkbox"name="appropriate">
+    <input type="submit">
+
+</form>
+<ul  th:each="post : ${loggedInUser.posts}">
+
+    <li th:text="${post.body}"></li>
+    <li th:text="${post.createdAt}"></li>
+
+</ul>
+
+</body>
+</html>

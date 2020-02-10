@@ -3,18 +3,37 @@ package com.zyihang.codeFellowShip.models;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class ApplicationUser implements UserDetails {
 
     @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
-            long id;
+            public long id;
+
+    @ManyToMany
+    @JoinTable(
+            name="feed",
+            joinColumns = {@JoinColumn(name="followingId")},
+            inverseJoinColumns = {@JoinColumn(name="followedId")}
+
+    )
+
+    public Set<ApplicationUser> usersFollowingMe;
+    public long getId() {
+        return id;
+    }
+    @ManyToMany(mappedBy = "usersFollowingMe")
+    public Set<ApplicationUser> usersIAmFollowing;
+
+    @OneToMany(mappedBy = "applicationUser")
+            List<Post> posts ;
+
+
 
     String username;
     String password;
@@ -36,6 +55,12 @@ public class ApplicationUser implements UserDetails {
         this.bio=bio;
     }
 
+    public List<Post> getPosts(){
+        return this.posts;
+    }
+
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -53,11 +78,13 @@ public class ApplicationUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
+
         return true;
     }
 
     @Override
-    public boolean isAccountNonLocked() {
+    public boolean isAccountNonLocked()
+    {
         return true;
     }
 

@@ -5,10 +5,19 @@
     <title>Home page</title>
 </head>
 <body>
-<h1>Welcome [[${firstName}]]</h1>
-<h2>make a new user</h2>
+<nav>
+    <ul>
+        <li>
+            <a href="/"> go home</a>
+            <a href="/logout">Log Out</a>
+        </li>
+    </ul>
+</nav>
+
+<h1>Welcome [[${username}]]</h1>
+<h2>Make a new user</h2>
 <form action="/signUp" method="POST">
-    Username<input type="username" name="userName" >
+    Username<input type="userName" name="username" >
     Password<input type="password" name="password">
     First Name<input type="text" name ="firstName" >
     Last Name<input type="text" name="lastName" >

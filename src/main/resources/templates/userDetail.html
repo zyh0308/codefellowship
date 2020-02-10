@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>userDetail</title>
+</head>
+<body>
+<nav>
+    <ul>
+        <li>
+            <a href="/"> go home</a>
+            <a href="/logout">Log Out</a>
+        </li>
+    </ul>
+</nav>
+<h1>This is  [[${usernameWeAreVisiting}]]'s detail page, you are visiting them [[${principalTheAndroid}]]</h1>
+<ul>
+    <li th:each="follower : ${userWeAreVisiting.usersFollowingMe}" th:text="${follower.username}"></li>
+</ul>
+<ul>
+    <li th:each="post : ${userWeAreVisiting.posts}">
+        <p>[[${post.body}]]  [[${post.createdAt}]]</p>
+    </li>
+</ul>
+
+
+<form th:action="'/followMe/'+${userWeAreVisiting.id}" method="POST">
+
+    <input type="Submit" value="Follow Me">
+</form>
+</body>
+</html>
